@@ -1,0 +1,5 @@
+* Hostname was found in DNS cache
+*   Trying 104.199.240.211...
+* Connected to accounts.spotify.com (104.199.240.211) port 443 (#13)
+* SSL certificate problem: unable to get local issuer certificate
+* Closing connection 13
