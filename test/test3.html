@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title>Get Dummy Album</title>
+  <meta name="Generator" content="EditPlus">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <link rel="stylesheet" href="css/style.css"/>
+ </head>
+ <body ng-app="App" ng-controller="mainController">
+  <div class="flex">
+	<div class="centerdiv" style="max-width:100%;">
+		<input type="button" value="Get Dummy Artists" ng-click="getArtist()"><br>
+		<p ng-if="artists">{{artists}}</p>
+	</div>
+  </div>
+ </body>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.10/angular.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.10/angular-route.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.10/angular-resource.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.10/angular-sanitize.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.10/angular-cookies.js"></script>
+<script type="text/javascript">
+	 <!--
+		angular.module("App", []).controller("mainController", ['$scope', '$http', '$location', '$timeout', '$rootScope', function($scope, $http, $location, $timeout, $rootScope){
+
+			$http({
+				method:'GET',
+				url:'../backend/getToken.php',
+				headers: {'Content-Type': "application/json"}
+			}).then( function successCallBack(response){
+				$scope.response = response;
+				if($scope.response.data.status){
+					$scope.token = $scope.response.data.access_token;
+				}else{
+					alert('Something went wrong please try again later');
+				}
+			}, function errorCallBack(response){
+				$scope.status = status;
+			});
+
+			$scope.getArtist = function(){
+				$http({
+					method:'GET',
+					url:'https://api.spotify.com/v1/search?q=muse&type=artist',
+					headers: {'Content-Type': "application/json",
+						'Authorization': 'Bearer ' + $scope.token}
+				}).then( function successCallBack(response){
+					$scope.response		= response;
+					$scope.artists		= $scope.response.data.artists.items;
+					$scope.artists		= JSON.stringify($scope.artists);
+				}, function errorCallBack(response){
+					$scope.status		= status;
+				});
+			}
+
+		}]);
+	 //-->
+ </script>
+</html>
